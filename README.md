@@ -1,4 +1,4 @@
-# impmed: Causal Mediation Analysis Using Pure Regression Imputation
+# impmed: A Stata Module for Causal Mediation Analysis Using Pure Regression Imputation
 
 `impmed` is a Stata module designed to perform causal mediation analysis using pure regression imputation, suitable for scenarios with single or multiple mediators.
 
@@ -23,21 +23,19 @@ impmed depvar mvars, dvar(varname) d(real) dstar(real) yreg(string) [options]
 - `nointeraction`: Specifies whether treatment-mediator interactions are not to be included in the outcome model (default assumes interactions are present).
 - `cxd`: Includes all two-way interactions between the treatment and baseline covariates in all the outcome models.
 - `cxm`: Includes all two-way interactions between the mediators and baseline covariates in the outcome model.
-- `reps(integer)`: Number of replications for bootstrap resampling (default is 200).
-- `strata(varname)`: Identifies resampling strata.
-- `cluster(varname)`: Identifies resampling clusters.
-- `level(cilevel)`: Confidence level for constructing bootstrap confidence intervals (default is 95%).
-- `seed(passthru)`: Seed for replicable bootstrap resampling.
 - `detail`: Prints the fitted models for the outcome used to construct effect estimates.
+- `bootstrap_options`: All `bootstrap` options are available.
 
 ## Description
 
-`impmed` estimates three key models for causal mediation analysis:
+`impmed` estimates three models for causal mediation analysis:
 1. A model for the outcome conditional on the exposure and baseline covariates.
 2. A model for the outcome conditional on the exposure, baseline covariates, and mediator(s).
 3. A model for the predicted values obtained from the previous model, conditional on the exposure and baseline covariates.
 
 This approach provides estimates of total, natural direct, and natural indirect effects when a single mediator is specified. It provides estimates of multivariate natural direct and indirect effects for multiple mediators.
+
+`impmed` allows sampling weights via the `pweights` option, but it does not internally rescale them for use with the bootstrap. If using weights from a complex sample design that require rescaling to produce valid boostrap estimates, the user must be sure to appropriately specify the `strata`, `cluster`, and `size` options from the `bootstrap` command so that Nc-1 clusters are sampled within from each stratum, where Nc denotes the number of clusters per stratum. Failure to properly adjust the bootstrap sampling to account for a complex sample design that requires weighting could lead to invalid inferential statistics.
 
 ## Examples
 
@@ -46,12 +44,12 @@ This approach provides estimates of total, natural direct, and natural indirect 
 use nlsy79.dta
 
 // Single mediator with default settings
-impmed std_cesd_age40 ever_unemp_age3539, dvar(att22) cvars(female black hispan paredu parprof parinc_prank famsize afqt3) d(1) dstar(0) yreg(regress) reps(1000)
+impmed std_cesd_age40 ever_unemp_age3539, dvar(att22) cvars(female black hispan paredu parprof parinc_prank famsize afqt3) d(1) dstar(0) yreg(regress) 
 
-// Single mediator with all two-way interactions
-impmed std_cesd_age40 ever_unemp_age3539, dvar(att22) cvars(female black hispan paredu parprof parinc_prank famsize afqt3) d(1) dstar(0) yreg(regress) cxd cxm reps(1000) detail
+// Single mediator with all two-way interactions and 1000 bootstrap replications
+impmed std_cesd_age40 ever_unemp_age3539, dvar(att22) cvars(female black hispan paredu parprof parinc_prank famsize afqt3) d(1) dstar(0) yreg(regress) cxd cxm reps(1000)
 
-// Multiple mediators with default settings
+// Multiple mediators with 1000 bootstrap replications
 impmed std_cesd_age40 ever_unemp_age3539 log_faminc_adj_age3539, dvar(att22) cvars(female black hispan paredu parprof parinc_prank famsize afqt3) d(1) dstar(0) yreg(regress) reps(1000)
 ```
 
