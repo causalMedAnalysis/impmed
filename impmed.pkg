@@ -1,0 +1,14 @@
+d 'IMPMED': module to perform causal mediation analysis using pure regression imputation
+d
+d impmed performs causal mediation analysis using pure regression imputation.
+d      
+d Requires: Stata version 15
+d
+d Distribution-Date: 20240827
+d
+d Author: Geoff Wodtke, University of Chicago
+d Support: email wodtke@@uchicago.edu
+d
+f impmed.ado
+f impmedbs.ado
+f impmed.sthlp

@@ -1,0 +1,31 @@
+{smcl}
+{txt}{sf}{ul off}
+{.-}
+{s6hlp}
+package ^impmed^ from https://github.com/causalMedAnalysis/impmed
+{smcl}
+{.-}
+{s6hlp}
+
+{smcl}
+{hilite:TITLE}{p 6 8}'IMPMED': module to perform causal mediation analysis using pure regression imputation{p_end}
+{s6hlp}
+
+^DESCRIPTION/AUTHOR(S)^
+      
+impmed performs causal mediation analysis using pure regression imputation.
+      
+Requires: Stata version 15
+      
+Distribution-Date: 20240710
+      
+Author: Geoff Wodtke, University of Chicago
+Support: email wodtke@@uchicago.edu
+      
+
+^INSTALLATION FILES^                              (type ^net install^ ^impmed^)
+      impmed.ado
+	  impmedbs.ado
+      impmed.sthlp
+
+{txt}{sf}{ul off}
