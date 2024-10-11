@@ -33,7 +33,7 @@ impmed depvar mvars, dvar(varname) d(real) dstar(real) yreg(string) [options]
 2. A model for the outcome conditional on the exposure, baseline covariates, and mediator(s).
 3. A model for the predicted values obtained from the previous model, conditional on the exposure and baseline covariates.
 
-This approach provides estimates of total, natural direct, and natural indirect effects when a single mediator is specified. It provides estimates of multivariate natural direct and indirect effects for multiple mediators.
+This approach provides estimates of total, natural direct, and natural indirect effects when a single mediator is specified. It provides estimates of multivariate natural direct and indirect effects for multiple mediators. Inferential statistics are computed using the nonparametric bootstrap.
 
 `impmed` allows sampling weights via the `pweights` option, but it does not internally rescale them for use with the bootstrap. If using weights from a complex sample design that require rescaling to produce valid boostrap estimates, the user must be sure to appropriately specify the `strata`, `cluster`, and `size` options from the `bootstrap` command so that Nc-1 clusters are sampled within from each stratum, where Nc denotes the number of clusters per stratum. Failure to properly adjust the bootstrap sampling to account for a complex sample design that requires weighting could lead to invalid inferential statistics.
 
